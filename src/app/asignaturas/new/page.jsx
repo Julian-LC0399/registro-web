@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 function Page() {
   const [newAsignatura, setNewAsignatura] = useState({
@@ -15,6 +15,7 @@ function Page() {
   });
 
   const router = useRouter();
+  const params = useParams();
 
   const createAsignatura = async () => {
     try {
@@ -27,15 +28,29 @@ function Page() {
       });
       const data = await res.json();
 
-      if(res.status== 200) {
-        router.push('/')
+      if (res.status == 200) {
+        router.push("/");
+        router.refresh();
       }
-      console.log(data)
+      console.log(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
+  const handleDelete = async () => {
+    if (window.confirm("Esta seguro de eliminar el registro?")) {
+      try {
+        const res = await fetch(`/api/asignaturas/${params.id}`, {
+          method: "Delete",
+        });
+        router.push("/");
+        router.refresh();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createAsignatura();
@@ -44,12 +59,29 @@ function Page() {
   const handleChange = (e) =>
     setNewAsignatura({ ...newAsignatura, [e.target.name]: e.target.value });
 
+  useEffect(() => {
+    console.log(params);
+  }, []);
+
   return (
     <div className="flex justify-center items-center">
       <form onSubmit={handleSubmit}>
-        <h1 className="font-bold text-3xl">
-          Registrar asignatura
-        </h1>
+        <header className="flex justify-between">
+          <h1 className="font-bold text-3xl">
+            {!params.id
+              ? "Crear registro de asignatura"
+              : "Actualizar registro de asignatura"}
+          </h1>
+
+          <button
+            type="button"
+            className="bg-red-500 px-3 py-1 rounded-md"
+            onClick={handleDelete}
+          >
+            Borrar
+          </button>
+        </header>
+
         <input
           type="text"
           name="name"
@@ -108,6 +140,7 @@ function Page() {
         />
 
         <button
+          type="submit"
           className="bg-black hover:bg-gray-800 text-white font-semibold 
              px-4 py-2 rounded-lg"
         >
