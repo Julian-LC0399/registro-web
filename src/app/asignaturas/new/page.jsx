@@ -17,6 +17,22 @@ function Page() {
   const router = useRouter();
   const params = useParams();
 
+  const getAsignatura = async () => {
+    const res = await fetch(`/api/asignaturas/${params.id}`);
+    const data = await res.json();
+    console.log(data);
+    setNewAsignatura({
+      name: data.name,
+      credit_units: data.credit_units,
+      teacher: data.teacher,
+      description: data.description,
+      schedule: data.schedule,
+      classroom: data.classroom,
+      prerequisites: data.prerequisites,
+      maximum_quota: data.maximum_quota,
+    });
+  };
+
   const createAsignatura = async () => {
     try {
       const res = await fetch("/api/asignaturas", {
@@ -38,11 +54,28 @@ function Page() {
     }
   };
 
+  const updateAsignatura = async () => {
+    try {
+      const res = await fetch(`/api/asignaturas/${params.id}`, {
+        method: "PUT",
+        body: JSON.stringify(newAsignatura),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleDelete = async () => {
     if (window.confirm("Esta seguro de eliminar el registro?")) {
       try {
         const res = await fetch(`/api/asignaturas/${params.id}`, {
-          method: "Delete",
+          method: "DELETE",
         });
         router.push("/");
         router.refresh();
@@ -53,14 +86,20 @@ function Page() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createAsignatura();
+    if (!params.id) {
+      await createAsignatura();
+    } else {
+      updateAsignatura();
+    }
   };
 
   const handleChange = (e) =>
     setNewAsignatura({ ...newAsignatura, [e.target.name]: e.target.value });
 
   useEffect(() => {
-    console.log(params);
+    if (params.id) {
+      getAsignatura();
+    }
   }, []);
 
   return (
@@ -88,6 +127,7 @@ function Page() {
           placeholder="Nombre"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.name}
         />
         <input
           type="number"
@@ -95,6 +135,7 @@ function Page() {
           placeholder="Unidades de crédito"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.credit_units}
         />
         <input
           type="text"
@@ -102,6 +143,7 @@ function Page() {
           placeholder="Profesor"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.teacher}
         />
         <input
           type="text"
@@ -109,6 +151,7 @@ function Page() {
           placeholder="Descripción"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.description}
         />
         <input
           type="text"
@@ -116,6 +159,7 @@ function Page() {
           placeholder="Horario"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.schedule}
         />
         <input
           type="number"
@@ -123,6 +167,7 @@ function Page() {
           placeholder="Aula"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.classroom}
         />
         <input
           type="text"
@@ -130,6 +175,7 @@ function Page() {
           placeholder="Prerrequisitos"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.prerequisites}
         />
         <input
           type="number"
@@ -137,6 +183,7 @@ function Page() {
           placeholder="Cupo máximo"
           className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
           onChange={handleChange}
+          value={newAsignatura.maximum_quota}
         />
 
         <button
@@ -144,7 +191,7 @@ function Page() {
           className="bg-black hover:bg-gray-800 text-white font-semibold 
              px-4 py-2 rounded-lg"
         >
-          Registrar
+          {!params.id ? "Registrar " : "Actualizar datos"}
         </button>
       </form>
     </div>
