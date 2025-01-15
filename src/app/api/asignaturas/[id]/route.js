@@ -11,7 +11,7 @@ export async function GET(request, { params }) {
     if (!asignaturaFound)
       return NextResponse.json(
         {
-          message: "Asignayura not found",
+          message: "Asignatura not found",
         },
         {
           status: 404,
