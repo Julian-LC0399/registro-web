@@ -5,7 +5,7 @@ function Navbar() {
     <nav className="bg-blue-900 py-5 mb-2">
       <div className="container flex justify-between px-10 md:px-0 mx-auto">
         <Link href={"/"}>
-          <h1 className="text-2xl font-bold "> inicio</h1>
+          <h1 className="text-2xl font-bold "> Inicio</h1>
         </Link>
         <ul className="flex gap-x-4">
           <li>
