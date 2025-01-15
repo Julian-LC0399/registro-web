@@ -125,7 +125,7 @@ function Page() {
           type="text"
           name="name"
           placeholder="Nombre"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.name}
         />
@@ -133,7 +133,7 @@ function Page() {
           type="number"
           name="credit_units"
           placeholder="Unidades de crédito"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.credit_units}
         />
@@ -141,7 +141,7 @@ function Page() {
           type="text"
           name="teacher"
           placeholder="Profesor"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.teacher}
         />
@@ -149,7 +149,7 @@ function Page() {
           type="text"
           name="description"
           placeholder="Descripción"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.description}
         />
@@ -157,7 +157,7 @@ function Page() {
           type="text"
           name="schedule"
           placeholder="Horario"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.schedule}
         />
@@ -165,7 +165,7 @@ function Page() {
           type="number"
           name="classroom"
           placeholder="Aula"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black "
           onChange={handleChange}
           value={newAsignatura.classroom}
         />
@@ -173,7 +173,7 @@ function Page() {
           type="text"
           name="prerequisites"
           placeholder="Prerrequisitos"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.prerequisites}
         />
@@ -181,7 +181,7 @@ function Page() {
           type="number"
           name="maximum_quota"
           placeholder="Cupo máximo"
-          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2"
+          className="bg-gray-100 border-2 w-full p-2 rounded-lg my-2 text-black"
           onChange={handleChange}
           value={newAsignatura.maximum_quota}
         />
